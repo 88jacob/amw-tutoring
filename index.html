@@ -239,6 +239,15 @@
   /* ── About: layout 3, asymmetric split 7/5 ─────── */
   .about .wrap{display:grid;grid-template-columns:7fr 5fr;gap:clamp(30px,5vw,64px);align-items:start}
   .about .prose p{color:var(--ink-2);margin-bottom:1.15rem;max-width:62ch}
+  .about .side{display:grid;gap:clamp(18px,3vw,28px)}
+  /* Photo grade: the page's ONE photo treatment (design-method §8):
+     slight desaturate + cool tint toward the copybook palette, cream wash overlay. */
+  .tutor-photo .ph{position:relative;display:block}
+  .tutor-photo img{width:100%;height:auto;display:block;border-radius:4px;
+    filter:saturate(.88) contrast(1.04) brightness(.98) sepia(.06)}
+  .tutor-photo .ph::after{content:"";position:absolute;inset:0;border-radius:4px;
+    background:linear-gradient(160deg,rgba(61,107,162,.07),rgba(244,241,233,.12));
+    pointer-events:none}
   .glance{background:var(--accent-deep);color:#eaf1f7;border-radius:4px;
     padding:clamp(26px,3vw,38px);position:relative}
   .glance::before,.glance::after{content:"";position:absolute;width:12px;height:12px;
@@ -508,6 +517,13 @@
       <p>I would love the opportunity to tutor and help your child with their Mandarin homework. I am best suited for students who do not have native speakers at home. Because I learned Mandarin as a student here, I remember which parts felt confusing and which explanations actually helped them make sense.</p>
       <p>I have my own transportation, or your student can come to my home in Redwood City. I am happy to support your student in any way that would be helpful, and I look forward to hearing from you.</p>
     </div>
+    <div class="side">
+    <!-- SWAP: tutor photo (img/anna.webp) and its caption -->
+    <figure class="grid-frame tutor-photo reveal">
+      <span class="ph"><img src="img/anna.webp" width="640" height="640" loading="lazy"
+           alt="Anna, the AMW Tutoring founder, smiling in a garden among blue hydrangeas"></span>
+      <figcaption>Anna, in the garden where a lot of the homework help happens.</figcaption>
+    </figure>
     <aside class="glance reveal" aria-label="Quick facts">
       <h3><svg style="width:1em;height:1em;vertical-align:-8%;margin-right:.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4.4 0-8-3.6-8-8 0-5.2 8-10 8-10s8 4.8 8 10c0 4.4-3.6 8-8 8Z"/><path d="M12 21v-8"/></svg>At a Glance</h3>
       <ul>
@@ -519,6 +535,7 @@
         <li>$20 per hour</li>
       </ul>
     </aside>
+    </div>
   </div>
 </section>
 
