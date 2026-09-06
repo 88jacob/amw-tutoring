@@ -672,18 +672,25 @@
     if (REDUCED) { p.style.strokeDashoffset = 0; return; }
     p.style.strokeDashoffset = len;
   });
-  if (!REDUCED && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) {
-          paths.forEach(function(p){ p.style.strokeDashoffset = 0; });
-          io.disconnect();
-        }
-      });
-    }, {threshold:.3});
-    io.observe(svg);
-  } else {
-    paths.forEach(function(p){ p.style.strokeDashoffset = 0; });
+  if (!REDUCED) {
+    var drawn = false;
+    function draw(){
+      if (drawn) return; drawn = true;
+      paths.forEach(function(p){ p.style.strokeDashoffset = 0; });
+    }
+    /* On every page load the hero is the first thing on screen, so the character
+       always draws itself as the page's opening moment. The IntersectionObserver
+       then covers the edge case of a load that restores a scrolled position, and
+       the safety timer guarantees the strokes can never sit hidden. */
+    setTimeout(draw, 350);
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { draw(); io.disconnect(); } });
+      }, {threshold:.3});
+      io.observe(svg);
+    }
+    setTimeout(draw, 2500);
+    window.addEventListener('pageshow', function(e){ if (e.persisted) draw(); });
   }
 })();
 
