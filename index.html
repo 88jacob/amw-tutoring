@@ -359,7 +359,8 @@
     footer .cols{grid-template-columns:1fr}
     footer .cols>div{border-left:none;padding-left:0;border-top:1px solid var(--hair-soft);padding-top:20px}
     footer .cols>div:first-child{border-top:none;padding-top:0}
-    .process .hint{display:block}
+    .rail{grid-auto-flow:row;grid-auto-columns:unset;overflow-x:visible}
+    .process .hint{display:none}
   }
 </style>
 </head>
@@ -547,7 +548,7 @@
     <h2>Good To Know</h2>
     <div style="height:34px"></div>
     <div class="items">
-      <details open class="reveal">
+      <details class="reveal">
         <summary><span class="n">01</span>What ages and levels do you work with?</summary>
         <p>Elementary and middle school students, from complete beginners through intermediate learners. Students in Mandarin immersion programs or school language classes are a great fit, especially when there is no native speaker at home.</p>
       </details>
