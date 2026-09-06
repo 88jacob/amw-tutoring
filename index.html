@@ -231,12 +231,14 @@
   .about .wrap{display:grid;grid-template-columns:7fr 5fr;gap:clamp(30px,5vw,64px);align-items:start}
   .about .prose p{color:var(--ink-2);margin-bottom:1.15rem;max-width:62ch}
   .about .side{display:grid;gap:clamp(18px,3vw,28px)}
+  .tutor-fig img{border:1px solid var(--hair);border-radius:4px}
+  .tutor-fig figcaption{margin-top:10px;font-size:.82rem;color:var(--muted)}
   /* Photo grade: the page's ONE photo treatment (design-method §8):
      slight desaturate + cool tint toward the copybook palette, cream wash overlay. */
-  .tutor-photo .ph{position:relative;display:block}
-  .tutor-photo img{width:100%;height:auto;display:block;border-radius:4px;
+  .tutor-fig .ph{position:relative;display:block}
+  .tutor-fig img{width:100%;height:auto;display:block;border-radius:4px;
     filter:saturate(.88) contrast(1.04) brightness(.98) sepia(.06)}
-  .tutor-photo .ph::after{content:"";position:absolute;inset:0;border-radius:4px;
+  .tutor-fig .ph::after{content:"";position:absolute;inset:0;border-radius:4px;
     background:linear-gradient(160deg,rgba(61,107,162,.07),rgba(244,241,233,.12));
     pointer-events:none}
   .glance{background:var(--accent-deep);color:#eaf1f7;border-radius:4px;
@@ -339,6 +341,7 @@
     .hero .wrap{grid-template-columns:1fr;gap:44px}
     .about .wrap{grid-template-columns:1fr}
     .contact .wrap{grid-template-columns:1fr}
+    .about .side{max-width:520px;justify-self:center}
   }
   @media (max-width:640px){
     h1{font-size:clamp(2rem,9vw,2.6rem)}
@@ -509,8 +512,8 @@
     </div>
     <div class="side">
     <!-- SWAP: tutor photo (img/anna.webp) and its caption -->
-    <figure class="grid-frame tutor-photo reveal">
-      <span class="ph"><img src="img/anna.webp" width="640" height="640" loading="lazy"
+    <figure class="tutor-fig reveal">
+      <span class="ph"><img src="img/anna.webp" width="640" height="640"
            alt="Anna, the AMW Tutoring founder, smiling in a garden among blue hydrangeas"></span>
       <figcaption>Anna. Sophomore at Saint Francis High School, and your tutor.</figcaption>
     </figure>
