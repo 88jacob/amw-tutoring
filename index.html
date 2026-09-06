@@ -57,9 +57,8 @@
   SWAP: all four FAQ questions and answers
   SWAP: form helper line and privacy line
   SWAP: footer columns (brand blurb, contact list, fine print)
-  SWAP: form wiring: action is "#" (shipped unwired per gate); intended endpoint is
-        FormSubmit, /REPLACE_WITH_ANNA_EMAIL@example.com to the real inbox, per the
-        wiring comment at the <form> below. One-time activation click from that inbox.
+  SWAP: form wired to annamweeks@gmail.com via FormSubmit (operator-provided address);
+        first submission triggers a one-time activation click from that inbox.
   ============================================================
 -->
 <meta charset="UTF-8">
@@ -583,10 +582,10 @@
       </div>
     </div>
     <div class="reveal">
-      <!-- Shipped UNWIRED (action="#") per the design gate. Intended wiring: set action to
-           https://formsubmit.co/<ANNA'S REAL EMAIL> and the first submission triggers a
-           one-time activation click from that inbox. No fake success state before then. -->
-      <form action="#" method="POST">
+      <!-- Wired via FormSubmit to annamweeks@gmail.com (operator instruction). The FIRST
+           real submission triggers FormSubmit's one-time activation email to that inbox;
+           Anna must click "activate" from that email, after which messages deliver. -->
+      <form action="https://formsubmit.co/annamweeks@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New tutoring inquiry (AMW Tutoring)">
         <input type="hidden" name="_captcha" value="false">
         <div class="row2">
@@ -680,10 +679,15 @@
       paths.forEach(function(p){ p.style.strokeDashoffset = 0; });
     }
     /* On every page load the hero is the first thing on screen, so the character
-       always draws itself as the page's opening moment. The IntersectionObserver
-       then covers the edge case of a load that restores a scrolled position, and
-       the safety timer guarantees the strokes can never sit hidden. */
-    setTimeout(draw, 350);
+       always draws itself as the page's opening moment. The draw must start AFTER
+       the browser's first painted frame: a plain setTimeout can fire pre-paint and
+       the browser collapses len -> 0 into the initial render, skipping the visible
+       animation entirely. The IntersectionObserver covers a load that restores a
+       scrolled position; the 2.5s safety guarantees strokes never sit hidden. */
+    var rf = window.requestAnimationFrame || function(f){ setTimeout(f, 50); };
+    function kick(){ rf(function(){ rf(function(){ setTimeout(draw, 150); }); }); }
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick);
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if (e.isIntersecting) { draw(); io.disconnect(); } });
